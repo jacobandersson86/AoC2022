@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["-f", "${workspaceFolder}/day9/rope_bridge/input/input.txt", "-r", "9"]
+            "args": ["-f", "${workspaceFolder}/day10/cathode-ray_tube/input/example.txt"]
         }
     ]
 }
