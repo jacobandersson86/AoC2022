@@ -16,6 +16,9 @@ class Monkey :
     def addItem(self, item : int):
         self.items.append(item)
 
+    def setCommonDivider(self, divider : int) :
+        self.commonDivider = divider
+
     def inspectAndThrow(self) :
         if len(self.items) == 0 :
             return False
@@ -23,6 +26,7 @@ class Monkey :
         item = self.items.pop(0)
         item = self.operation(item)
         # item = int(item / 3)
+        item %= self.commonDivider
 
         if (item % self.test) == 0 :
             self.trueMonkey.addItem(item)
@@ -33,10 +37,10 @@ class Monkey :
 
         return True
 
-
 if __name__ == "__main__" :
     parser = argparse.ArgumentParser()
-    parser.add_argument("--example", "-e", required=False)
+    parser.add_argument("--example", '-e', action="store_true")
+    parser.add_argument("--rounds", '-r', )
     args = parser.parse_args()
 
     monkeys = []
@@ -46,7 +50,7 @@ if __name__ == "__main__" :
         # Setup Monkeys
         monkey0 = Monkey([79, 98], lambda x : x * 19, 23)
         monkey1 = Monkey([54, 65, 75, 74], lambda x : x + 6, 19)
-        monkey2 = Monkey([79, 60, 97], lambda x : x * x, 13)
+        monkey2 = Monkey([79, 60, 97], lambda x : x * x , 13)
         monkey3 = Monkey([74], lambda x : x + 3, 17)
 
         # Who throws who
@@ -100,7 +104,18 @@ if __name__ == "__main__" :
 
         monkeys = [monkey0, monkey1, monkey2, monkey3, monkey4, monkey5, monkey6, monkey7]
 
-    for i in range(1000) :
+    commonDivider = int(0)
+    for monkey in monkeys :
+        if commonDivider == 0 :
+            commonDivider = monkey.test
+        else :
+            commonDivider *= monkey.test
+
+    for monkey in monkeys :
+        monkey.setCommonDivider(commonDivider)
+
+    rounds = int(args.rounds)
+    for i in range(rounds) :
         print(f"Round {i}")
         for monkey in monkeys:
             while monkey.inspectAndThrow():
@@ -113,5 +128,4 @@ if __name__ == "__main__" :
 
     inspected_items.sort(reverse=True)
 
-    print(f"Solution 1: {inspected_items [0] * inspected_items[1]}")
-
+    print(f"Solution : {inspected_items [0] * inspected_items[1]}")
