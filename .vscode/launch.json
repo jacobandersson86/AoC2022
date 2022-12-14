@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["-e", "1"]
+            "args": ["-f", "/Users/plejd/git/AoC2022/day12/hill_climbing_algorithm/input/example.txt"]
         }
     ]
 }
